@@ -1,0 +1,29 @@
+import {get,destory,post,put} from '../methods'
+
+
+export default{
+    list(){
+        return get({url:'/api/<%= plural_table_name %>'})
+    },
+    destory(id){
+        return destory({
+            url:`/api/<%= plural_table_name %>/${id}`
+        })
+    },
+    create(data){
+        return post({
+            url:'/api/<%= plural_table_name %>',
+            data:{
+                <%= singular_table_name %>:data
+            }
+        })
+    },
+    update(id,data){
+        return put({
+            url:`/api/<%= plural_table_name %>/${id}`,
+            data:{
+                <%= singular_table_name %>:data
+            }
+        })
+    }
+}
