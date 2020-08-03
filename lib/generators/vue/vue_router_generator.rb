@@ -23,7 +23,7 @@ module Vue
       end
 
       def rails_route
-        sentinel = /namespace :api\s* do\n*/m
+        sentinel = /scope '\/api'\s* do\n*/m
         content = "     resources :#{controller_file_path}\n"
         log :route, content
         inject_into_file "config/routes.rb", content, after: sentinel, verbose: false, force: false

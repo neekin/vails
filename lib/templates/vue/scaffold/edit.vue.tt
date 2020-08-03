@@ -1,0 +1,50 @@
+<template>
+  <div class='modal' v-if='<%= singular_table_name %>'>
+    <div class="form">
+        <div class="header">
+            Editing <%= singular_table_name.titleize %>
+            <div class="close" @click="close">X</div>
+        </div>
+        <div class="content">
+            <<%= singular_table_name %>-form v-model='<%= singular_table_name %>'/>
+        </div>
+    
+        <div class="footer">
+            <button @click='update'>保存</button>
+            <button @click='close'>取消</button>
+        </div>
+    </div>
+  </div>
+
+</template>
+
+<script>
+import <%= singular_table_name %>Form from './_form'
+export default {
+  components:{
+      <%= singular_table_name %>Form
+  },
+    props:{
+       <%= singular_table_name %>:{
+           default:null
+       }
+   },
+   model:{
+       prop:"<%= singular_table_name %>",
+       event:"close"
+   },
+   methods:{
+       close(){
+           this.$emit('close',null)
+       },
+       update(){
+           this.$emit('update')
+           this.close()
+       }
+   }
+}
+</script>
+
+<style scoped lang='scss'>
+
+</style>

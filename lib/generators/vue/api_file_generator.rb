@@ -30,6 +30,12 @@ module Vue
         log :export_api, controller_file_path
         inject_into_file "app/javascript/packs/api/index.js", content, after: sentinel, verbose: false, force: false
       end
+      def write_components
+        sentinel = /<template>\s*\n*<ul>\s*\n*/m
+        content = "<li><router-link to='/#{controller_file_path}'>#{controller_file_path.capitalize}</router-link></li>\n"
+        log :add_components, controller_file_path
+        inject_into_file "app/javascript/packs/components/SideBar.vue", content, after: sentinel, verbose: false, force: false
+      end
     end
   end
 end

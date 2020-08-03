@@ -1,43 +1,96 @@
 <template>
-  <p id="notice"><%%= notice %></p>
+<div>
+  <h1><%= plural_table_name.titleize %></h1>
+   <table>
+        <thead>
+          <tr>
+      <% attributes.reject(&:password_digest?).each do |attribute| -%>
+            <th><%= attribute.human_name %></th>
+      <% end -%>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr v-for='<%= singular_table_name %> in list' :key='<%= singular_table_name %>.id'>
+        <% attributes.reject(&:password_digest?).each do |attribute| -%>
+          <td>{{<%= singular_table_name %>.<%= attribute.column_name %>}} </td>
+        <% end -%>
 
-<h1><%= plural_table_name.titleize %></h1>
 
-<table>
-  <thead>
-    <tr>
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-      <th><%= attribute.human_name %></th>
-<% end -%>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
-      <tr>
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-        <td><%%= <%= singular_table_name %>.<%= attribute.column_name %> %></td>
-<% end -%>
-        <td><%%= link_to 'Show', <%= model_resource_name %> %></td>
-        <td><%%= link_to 'Edit', edit_<%= singular_route_name %>_path(<%= singular_table_name %>) %></td>
-        <td><%%= link_to 'Destroy', <%= model_resource_name %>, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <%% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%%= link_to 'New <%= singular_table_name.titleize %>', new_<%= singular_route_name %>_path %>
+          <td>
+            <button @click='get(<%= singular_table_name %>.id,"show<%= model_resource_name.capitalize %>")'>详情</button>
+          </td>
+          <td>
+             <button @click='get(<%= singular_table_name %>.id,"edit<%= model_resource_name.capitalize %>")'>编辑</button>
+          </td>
+          <td>
+           <button @click='destory(<%= singular_table_name %>.id)'>删除</button>
+          </td>
+        </tr>
+        </tbody>
+   </table>
+   <button @click='add'>新增</button>
+   <show v-model='show<%= model_resource_name.capitalize %>' />
+   <edit v-model='edit<%= model_resource_name.capitalize %>' @update='update'/>
+   <new  v-model='new<%= model_resource_name.capitalize %>' @create='create'/>
+</div>
 </template>
 
 <script>
+import Show from './show'
+import Edit from './edit'
+import New from './new'
 export default {
-
+  components:{
+    Show,
+    Edit,
+    New
+  },
+  data(){
+    return {
+      list:[],
+      show<%= model_resource_name.capitalize %>:null,
+      edit<%= model_resource_name.capitalize %>:null,
+      new<%= model_resource_name.capitalize %>:null
+    }
+  },
+  created(){
+    this.getList()
+  },
+  methods:{
+    add(){
+      this.new<%= model_resource_name.capitalize %> = {
+    <% attributes.each do |attribute| -%>
+           <%= attribute.column_name %>:"",
+      <% end -%>
+      }
+    },
+    async get(id,type){
+      let { data } = await this.$api.<%= plural_table_name %>.get(id)
+      this[type] = data
+    },
+    async getList(){
+      let { data } =  await  this.$api.<%= plural_table_name %>.list();
+      this.list = data
+    },
+    async update(){
+      await this.$api.<%= plural_table_name %>.update(this.edit<%= model_resource_name.capitalize %>.id,this.edit<%= model_resource_name.capitalize %>)
+      this.getList()
+    },
+    async destory(id){
+     if(confirm('确认删除资源吗？')) {
+      await this.$api.<%= plural_table_name %>.destory(id)
+      this.getList()
+     }
+    },
+    async create(){
+      await this.$api.<%= plural_table_name %>.create(this.new<%= model_resource_name.capitalize %>)
+      this.getList()
+    }
+  }
 }
 </script>
 
-<style>
-
+<style lang='scss' scoped>
+@import '../../assets/scss/scaffold.scss';
 </style>

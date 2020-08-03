@@ -6,5 +6,6 @@ class VailsGenerator < Rails::Generators::NamedBase
         invoke "vue:vue_router"
         log :invoke, "api_file"
         invoke "vue:api_file"
+        invoke  :scaffold 
     end
 end

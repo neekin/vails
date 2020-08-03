@@ -1,0 +1,57 @@
+<template>
+<div>
+
+    <% attributes.each do |attribute| -%>
+    <div class="field">
+    <% if attribute.password_digest? -%>
+        <label>password</label>
+        <input type='password' v-model='<%= singular_table_name %>.password'/>
+    </div>
+    <div class="field">
+        <label>password_confirmation</label>
+        <input type='password' v-model='<%= singular_table_name %>.password_confirmation'/>
+    <% elsif attribute.attachments? -%>
+        <%%= form.label :<%= attribute.column_name %> %>
+        <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true %>
+    <% else -%>
+        <label><%= attribute.column_name %></label>
+        <% if attribute.field_type == :text_field -%>
+             <input type='text' v-model='<%= singular_table_name %>.<%= attribute.column_name %>'/>
+         <% end %>
+          <% if attribute.field_type == :check_box -%>
+             <input type='checkbox' v-model='<%= singular_table_name %>.<%= attribute.column_name %>'/>
+         <% end %>
+        <% if attribute.field_type == :text_area -%>
+            <textarea v-model='<%= singular_table_name %>.<%= attribute.column_name %>'></textarea>
+         <% end %>
+        <% if attribute.field_type == :date_select -%>
+            <input type='date' v-model='<%= singular_table_name %>.<%= attribute.column_name %>'/>  
+         <% end %>
+    <% end -%>
+    </div>
+    <% end -%>
+</div>
+</template>
+
+<script>
+export default {
+   props:{
+       <%= singular_table_name %>:{
+           default:null
+       }
+   },
+   model:{
+       prop:"<%= singular_table_name %>",
+       event:"close"
+   },
+   methods:{
+       close(){
+           this.$emit('close',null)
+       }
+   }
+}
+</script>
+
+<style scoped lang='scss'>
+
+</style>

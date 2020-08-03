@@ -5,6 +5,11 @@ export default{
     list(){
         return get({url:'/api/<%= plural_table_name %>'})
     },
+    get(id){
+        return get({
+            url:`/api/<%= plural_table_name %>/${id}`
+        })
+    },
     destory(id){
         return destory({
             url:`/api/<%= plural_table_name %>/${id}`

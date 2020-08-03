@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.version     = Vails::VERSION
   spec.authors     = ["NeeKin"]
   spec.email       = ["njgzs360@gmail.com"]
-  spec.homepage    = "https://rubygems.org/gems/vails"
+  spec.homepage    = "https://github.com/neekin/vails"
   spec.summary     = "a simple vue scaffold on rails."
   spec.description = "a simple vue scaffold on rails."
   spec.license     = "MIT"
@@ -25,7 +25,5 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.add_dependency "rails", "~> 6.0.3", ">= 6.0.3.2"
-
-  spec.add_development_dependency "sqlite3"
+  spec.add_dependency "rails", "~> 6.0.1", ">= 6.0.1"
 end
