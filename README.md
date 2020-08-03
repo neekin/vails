@@ -1,28 +1,31 @@
 # Vails
-Short description and motivation.
+一个简单的rails脚手架生成vue模板.
+### 创建项目
+```
 
-## Usage
-How to use my plugin.
-
-## Installation
-Add this line to your application's Gemfile:
-
-```ruby
+rails new blog --api -T
+```
+### 添加gem Gemfile
+```
+……
+gem 'webpacker'
 gem 'vails'
+……
+```
+### 安装gem
+```
+bundle
+```
+```
+## 安装前端环境
+rails webpacker:install
+rails webpacker:install:vue
+## 安装一些vue要用的库 必须
+yarn add axios vuex vue-router
+## 初始vails
+rails g vue:install
+## 最后
+rails g vails Post title content:text
 ```
 
-And then execute:
-```bash
-$ bundle
-```
-
-Or install it yourself as:
-```bash
-$ gem install vails
-```
-
-## Contributing
-Contribution directions go here.
-
-## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+你就可以愉快的在rails上把玩vue啦
