@@ -4,18 +4,18 @@ module Vue
     class ApiFileGenerator < Rails::Generators::NamedBase
       include Rails::Generators::ResourceHelpers
       source_root File.expand_path("../templates", __FILE__)
-      def the_api_init
-        unless File.exist?(Rails.root.join("app/javascript/packs/api", "index.js"))
-          create_file "app/javascript/packs/api/index.js", 'export default {}'
-        end 
-        unless File.exist?(Rails.root.join("app/javascript/packs/api", "methods.js"))
-          copy_file 'methods.js', "app/javascript/packs/api/methods.js"
-        end 
-      end
+      # def the_api_init
+      #   unless File.exist?(Rails.root.join("app/javascript/packs/api", "index.js"))
+      #     create_file "app/javascript/packs/api/index.js", 'export default {}'
+      #   end 
+      #   unless File.exist?(Rails.root.join("app/javascript/packs/api", "methods.js"))
+      #     copy_file 'methods.js', "app/javascript/packs/api/methods.js"
+      #   end 
+      # end
 
       def copy_api_file
         log :copy_api, controller_file_path
-        template "api.js", "app/javascript/packs/api/res/#{controller_file_path}.js"
+        template "javascript/api.js", "app/javascript/packs/api/res/#{controller_file_path}.js"
       end
 
       def write_import_api_form_index

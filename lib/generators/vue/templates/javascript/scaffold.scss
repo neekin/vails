@@ -1,0 +1,46 @@
+.modal{
+    position: fixed;
+    width: 100%;
+    height:100%;
+    background-color: rgba(0,0,0,.3);
+    top:0;
+    left:0;
+    /deep/.form{
+        width: 600px;
+        height:auto;
+        background-color: #fff;
+        position: absolute;
+        left:50%;
+        transform: translateX(-50%);
+        top:20%;
+        padding: 30px;
+        .content{
+            p{
+                display: flex;
+                align-items: center;
+                padding-left: 10px;
+                box-sizing: border-box;
+            }
+            .field{
+                display: flex;
+                align-items: center;
+            }
+        }
+        .header{
+            height:60px;
+            border-bottom: 1px solid #ccc;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .close{
+            position: absolute;
+            right:0;
+        }
+        .footer{
+            height:60px;
+            display: flex;
+            align-items: center;
+        }
+    }
+}

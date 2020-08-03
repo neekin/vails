@@ -1,4 +1,5 @@
-# desc "Explaining what the task does"
-# task :vails do
-#   # Task goes here
-# end
+desc "Explaining what the task does"
+task :vue:install do
+  # Task goes here
+  puts('hello WOrld')
+end
